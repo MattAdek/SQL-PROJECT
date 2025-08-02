@@ -124,8 +124,8 @@ SELECT
 FROM superstore
 GROUP BY `Sub-Category`
 HAVING SUM(Quantity) > (SELECT
-							AVG(Quantity)
-						FROM superstore)
+			AVG(Quantity)
+			FROM superstore)
 AND SUM(Profit) <= 0
 ORDER BY Total_Quantity DESC
 ;
@@ -182,19 +182,19 @@ ORDER BY AVG_Ship_Delay DESC
 -- QUESTION 7
 SELECT
 	YEAR(`Order Date`) AS Order_Year,
-    QUARTER(`Order Date`) AS Order_Quarter,
-    ROUND(SUM(Profit),2) AS Total_Profit
+   	QUARTER(`Order Date`) AS Order_Quarter,
+    	ROUND(SUM(Profit),2) AS Total_Profit
 FROM superstore
 GROUP BY
 	YEAR(`Order Date`),
-    QUARTER(`Order Date`)
+  	QUARTER(`Order Date`)
 ORDER BY Total_Profit DESC
 ;
 
 -- QUESTION 8
 SELECT
 	MONTHNAME(`Order Date`) AS Order_Month,
-    ROUND(SUM(Profit),2) AS Total_Profit
+    	ROUND(SUM(Profit),2) AS Total_Profit
 FROM superstore
 GROUP BY MONTHNAME(`Order Date`)
 ORDER BY Total_Profit
@@ -258,7 +258,7 @@ ORDER BY Occurences DESC
    
 -- QUESTION 12
 SELECT
-		Date,
+	Date,
         `High Price`,
         `Low Price`,
         ROUND((`High Price` - `Low Price`),2) AS Price_Range
@@ -289,10 +289,10 @@ SELECT
 	Year,
     ROUND(AVG(Turnover),2) AS AVG_Turnover
 		FROM (
-			  SELECT
-				YEAR(Date) As Year,
-				Turnover
-                FROM bajaj
+			SELECT
+			YEAR(Date) As Year,
+			Turnover
+                	FROM bajaj
 			 ) AS Yearly
 GROUP BY Year
 ORDER BY AVG_Turnover DESC
@@ -304,10 +304,10 @@ SELECT
 	Year,
     ROUND(AVG(`Total Traded Quantity`),2) AS AVG_Traded_Quantity
 		FROM (
-			  SELECT
-				YEAR(Date) As Year,
-				`Total Traded Quantity`
-                FROM bajaj
+			SELECT
+			YEAR(Date) As Year,
+			`Total Traded Quantity`
+                	FROM bajaj
 			 ) AS Yearly
 GROUP BY Year
 HAVING AVG(`Total Traded Quantity`) < 5000
@@ -400,7 +400,7 @@ GROUP BY race
 -- QUESTION 25
 SELECT
 	CASE
-		WHEN TIMESTAMPDIFF(YEAR, formatted_birthdate, CURDATE()) < 30 THEN 'Under 30'
+	WHEN TIMESTAMPDIFF(YEAR, formatted_birthdate, CURDATE()) < 30 THEN 'Under 30'
         WHEN TIMESTAMPDIFF(YEAR, formatted_birthdate, CURDATE()) BETWEEN 30 AND 39 THEN '30-39'
         WHEN TIMESTAMPDIFF(YEAR, formatted_birthdate, CURDATE()) BETWEEN 40 AND 49 THEN '40-49'
         ELSE '50+'
@@ -433,9 +433,9 @@ ORDER BY Average_years_tenure DESC
 -- QUESTION 28
 SELECT
 	AVG(DATEDIFF(
-				 IF(termdate IS NULL OR termdate = '', CURDATE(), STR_TO_DATE(termdate, '%Y-%m-%d %H:%i:%s UTC')),
+			IF(termdate IS NULL OR termdate = '', CURDATE(), STR_TO_DATE(termdate, '%Y-%m-%d %H:%i:%s UTC')),
 					hire_date)
-                    /365) AS avg_employed_years 
+                    	/365) AS avg_employed_years 
 FROM hrdata
 ;
 
@@ -444,7 +444,7 @@ SELECT
 	department,
 	SUM(
 		CASE
-			WHEN termdate IS NOT NULL AND termdate <> ''
+		WHEN termdate IS NOT NULL AND termdate <> ''
             THEN 1 ELSE 0 END) 
             * 100 / COUNT(*) AS turnover_rate
 FROM hrdata
@@ -463,8 +463,8 @@ FROM (
 		department,
         COUNT(*) AS total_employees,
         SUM(
-			CASE
-				WHEN formatted_hire_date >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR)
+		CASE
+		WHEN formatted_hire_date >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR)
                 THEN 1 ELSE 0
                 END) AS recent_hires
 		FROM emptable
